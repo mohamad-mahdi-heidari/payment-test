@@ -13,8 +13,9 @@ exports.create = asyncCatch(async (req, res, err) => {
 });
 
 exports.read = asyncCatch(async (req, res, err) => {
+    const {access}=req.body;
     const {user_id}=req;
-    const result = await read(user_id);
+    const result = await read(user_id,access);
     return res.status(200).json({
         status: true,
         message: "success",

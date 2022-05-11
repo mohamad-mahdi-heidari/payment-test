@@ -10,10 +10,9 @@ exports.code = asyncCatch(async (req, res, err) => {
         result: result,
     });
 });
-
 exports.login = asyncCatch(async (req, res, err) => {
-    const {username,password}=req.body;
-    const result = await generateCode(username,password);
+    const {username,password,role}=req.body;
+    const result = await generateCode(username,password,role);
     return res.status(200).json({
         status: true,
         message: "success",
