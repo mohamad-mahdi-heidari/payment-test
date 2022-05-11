@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 const auth=require('./../../src/middlewares/auth')
 const controllers = require("./../../src/http/controllers/payment.controller");
-
+const {roles, resource} = require('./../../src/roles/payment.role');
+const {grantAccess} = require("./../../src/middlewares/grant-access");
 router
     .route("/")
     /**
      * @swagger
-     * /payment:
+     * /payments:
      *   post:
      *     summary: create new payment
      *     tags:
@@ -57,10 +58,10 @@ router
      *                   description: response data
      *
      */
-    .post(auth,controllers.create)
+    .post(auth,grantAccess(resource, roles),controllers.create)
     /**
      * @swagger
-     * /payment:
+     * /payments:
      *   get:
      *     summary: read all user plan
      *     tags:
@@ -88,10 +89,10 @@ router
      *                   description: response data
      *
      */
-    .get(auth,controllers.read)
+    .get(auth,grantAccess(resource, roles),controllers.read)
     /**
      * @swagger
-     * /payment:
+     * /payments:
      *   put:
      *     summary: update custom payment
      *     tags:
@@ -150,10 +151,10 @@ router
      *                   description: response data
      *
      */
-    .put(auth,controllers.update)
+    .put(auth,grantAccess(resource, roles),controllers.update)
     /**
      * @swagger
-     * /payment:
+     * /payments:
      *   delete:
      *     summary: delete specific payment
      *     tags:
@@ -203,6 +204,6 @@ router
      *                   description: response data
      *
      */
-    .delete(auth,controllers.remove)
+    .delete(auth,grantAccess(resource, roles),controllers.remove)
 
 module.exports = router;

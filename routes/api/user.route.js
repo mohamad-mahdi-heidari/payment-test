@@ -14,7 +14,6 @@ router
      *     parameters:
      *      - name : body
      *        in : body
-     *        description : body for auth
      *        schema:
      *          type: object
      *          required:
@@ -25,6 +24,11 @@ router
      *              type: string
      *            password:
      *              type: string
+     *            role:
+     *              type: string
+     *              enum:
+     *               basic
+     *               admin
      *     security:
      *        - authorization: []
      *     requestBody:
@@ -34,6 +38,10 @@ router
      *             type: object
      *             properties:
      *               username:
+     *                   type: string
+     *                   description: username.
+     *                   example: ali_reza
+     *               password:
      *                   type: string
      *                   description: username.
      *                   example: ali_reza
