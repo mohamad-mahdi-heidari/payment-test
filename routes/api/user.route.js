@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const controllers = require("./../../src/http/controllers/user.controller");
-
+const {validateCode,validateLogin}=require('./../../src/http/validators/user.validator')
+const validator=require('./../../src/middlewares/validator')
 router
     .route("/login")
     /**
@@ -66,7 +67,7 @@ router
      *                   description: response data
      *
      */
-    .post( controllers.login);
+    .post(validator(validateLogin,"body"),controllers.login);
 
 router
     .route("/code")
@@ -127,5 +128,5 @@ router
      *                   description: response data
      *
      */
-    .post( controllers.code);
+    .post(validator(validateCode,"body"), controllers.code);
 module.exports = router;

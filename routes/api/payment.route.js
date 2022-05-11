@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const auth=require('./../../src/middlewares/auth')
+const {validateDelete,validateUpdate,validateCreate,validateRead}=require('./../../src/http/validators/payment.validator')
+const validator=require('./../../src/middlewares/validator')
 const controllers = require("./../../src/http/controllers/payment.controller");
 const {roles, resource} = require('./../../src/roles/payment.role');
 const {grantAccess} = require("./../../src/middlewares/grant-access");
@@ -58,7 +60,7 @@ router
      *                   description: response data
      *
      */
-    .post(auth,grantAccess(resource, roles),controllers.create)
+    .post(auth,grantAccess(resource, roles),validator(validateCreate,"body"),controllers.create)
     /**
      * @swagger
      * /payments:
@@ -89,7 +91,7 @@ router
      *                   description: response data
      *
      */
-    .get(auth,grantAccess(resource, roles),controllers.read)
+    .get(auth,grantAccess(resource, roles),validator(validateRead,"query"),controllers.read)
     /**
      * @swagger
      * /payments:
@@ -151,7 +153,7 @@ router
      *                   description: response data
      *
      */
-    .put(auth,grantAccess(resource, roles),controllers.update)
+    .put(auth,grantAccess(resource, roles),validator(validateUpdate,"body"),controllers.update)
     /**
      * @swagger
      * /payments:
@@ -204,6 +206,6 @@ router
      *                   description: response data
      *
      */
-    .delete(auth,grantAccess(resource, roles),controllers.remove)
+    .delete(auth,grantAccess(resource, roles),validator(validateRead,"body"),controllers.remove)
 
 module.exports = router;
