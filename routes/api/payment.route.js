@@ -206,6 +206,6 @@ router
      *                   description: response data
      *
      */
-    .delete(auth,grantAccess(resource, roles),validator(validateRead,"body"),controllers.remove)
+    .delete(auth,grantAccess(resource, roles),validator(validateDelete,"body"),controllers.remove)
 
 module.exports = router;
